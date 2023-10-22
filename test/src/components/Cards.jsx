@@ -1,24 +1,37 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { PizzaContext } from "../context/PizzaContext";
 
 const Cards = ({ id, img, name, ingredients, price }) => {
-  const navigate = useNavigate();
+  const { pizza } = useContext(PizzaContext);
+
+  console.log(pizza);
+
+  const orderPizza = (id) => {
+    setPizza((list) => {
+      const pickPizza = list.map((pizzaItem) => {
+        if (pizzaItem.id === id) {
+          return { ...pizzaItem, add: true, amount: 1 };
+        } else {
+          return pizzaItem;
+        }
+      });
+      return pickPizza;
+    });
+  };
 
   return (
-    <div>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={img} />
-        <Card.Body>
-          <Card.Title>{name}</Card.Title>
-          <Card.Text>
-            {ingredients}
-          </Card.Text>
-          <Card.Text>{price} </Card.Text>
-          <Button variant="primary" onClick={()=> {navigate(`/Pizza/${id}`)}}>Ver mas</Button>
-        </Card.Body>
-      </Card>
+    <div className="pizza-cards">
+      {pizza.map((p) => (
+        <div key={p.id} className="card">
+          <img src={p.img} alt={p.name} />
+          <div className="card-details">
+            <h2>{p.name}</h2>
+            <p>{p.ingredients}</p>
+            <p>${p.price}</p>
+            <button onClick={() => orderPizza(p.id)}>Ver mas</button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

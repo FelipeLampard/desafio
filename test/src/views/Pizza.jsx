@@ -8,7 +8,7 @@ const Pizza = () => {
   const { pizza } = useContext(PizzaContext);
   const [selectPizza, setSelectPizza] = useState({});
 
-  const info = () => {
+  const info = (pizza) => {
     const infoPizza = pizza.find((p) => p.id === id);
     setSelectPizza(infoPizza);
   };
@@ -19,7 +19,11 @@ const Pizza = () => {
 
   return (
     <div>
-      
+      <h1>{selectPizza.name}</h1>
+      <img src={selectPizza.img} alt={selectPizza.name} />
+      <p>Ingredientes: {selectPizza.ingredients.join(", ")}</p>
+      <p>Precio: ${selectPizza.price}</p>
+      <p>Descripción: {selectPizza.desc}</p>
     </div>
   );
 };

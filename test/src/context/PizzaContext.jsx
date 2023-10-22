@@ -1,21 +1,34 @@
-import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 export const PizzaContext = createContext();
+
 const PizzaGive = ({ children }) => {
-  const [pizza, setPizzas] = useState([]);
   const URL = "./pizzas.json";
-  const takePizzas = async () => {
+  const [pizzaList, setPizzaList] = useState([]);
+
+  const takePizzas = () => {
     try {
-      const response = await axios.get(URL);
-      if (response.status !== 200) {
-        throw new Error("No hay info");
-      }
-      const pizza = response.data;
-      setPizzas(pizza.map((item) => ({ ...item })));
-      console.log(pizza);
+      axios.get("./pizzas.json").then((response) => {
+        console.log(response.data);
+        setPizzaList(
+          response.data.map((item) => ({
+            ...item,
+            add: false,
+            detail: false,
+            amount: 0,
+          })
+        ));
+      });
+      
     } catch (error) {
-      console.error("Error al obtener datos:", error);
+      if (error.response) {
+        // Manejar errores de respuesta
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -26,8 +39,8 @@ const PizzaGive = ({ children }) => {
   return (
     <PizzaContext.Provider
       value={{
-        pizza,
-        setPizzas,
+        pizza: pizzaList,
+        setPizzas: setPizzaList,
       }}
     >
       {children}
