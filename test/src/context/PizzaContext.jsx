@@ -6,6 +6,7 @@ export const PizzaContext = createContext();
 const PizzaGive = ({ children }) => {
   const URL = "./pizzas.json";
   const [pizzaList, setPizzaList] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const takePizzas = () => {
     try {
@@ -17,13 +18,11 @@ const PizzaGive = ({ children }) => {
             add: false,
             detail: false,
             amount: 0,
-          })
-        ));
+          }))
+        );
       });
-      
     } catch (error) {
       if (error.response) {
-        // Manejar errores de respuesta
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -41,6 +40,7 @@ const PizzaGive = ({ children }) => {
       value={{
         pizza: pizzaList,
         setPizzas: setPizzaList,
+        cart, setCart
       }}
     >
       {children}

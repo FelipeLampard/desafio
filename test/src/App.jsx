@@ -13,8 +13,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pizza/:id" element={<Pizza />} />
-        <Route path="/carrito:" element={<Shop />} />
+        <Route path="/pizza/:id" element={<Pizza />}  />
+        <Route path="/carrito" element={<Shop />} />
         <Route path="*" element={<Notfound />} />
 
       </Routes>
