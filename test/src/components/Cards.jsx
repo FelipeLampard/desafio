@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { PizzaContext } from "../context/PizzaContext";
 import { Link, useNavigate } from "react-router-dom";
 
+
 const Cards = ({ id, img, name, ingredients, price }) => {
   const { pizza, cart, setCart } = useContext(PizzaContext);
   const navigate = useNavigate();

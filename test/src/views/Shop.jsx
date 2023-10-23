@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Pedido() {
+function Shop() {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -14,8 +14,8 @@ function Pedido() {
     <div className="text-center">
       <h2>Detalle del Pedido</h2>
       <ul>
-        {items.map((item, index) => (
-          <li key={index}>
+        {items.map((item) => (
+          <li key={item.id}>
             {item.nombre} - ${item.precio}
           </li>
         ))}
@@ -25,4 +25,4 @@ function Pedido() {
   );
 }
 
-export default Pedido;
+export default Shop;
